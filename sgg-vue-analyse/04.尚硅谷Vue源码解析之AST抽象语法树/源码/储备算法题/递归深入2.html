@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 转换数组的形式[1, 2, 3, [4, 5]]要变为这样的对象：
+        // {
+        //     chidren: [
+        //         {
+        //             value: 1
+        //         },
+        //         {
+        //             value: 2
+        //         },
+        //         {
+        //             value: 3
+        //         },
+        //         {
+        //             children: [
+        //                 {
+        //                     {
+        //                         value: 4
+        //                     },
+        //                     {
+        //                         value: 5
+        //                     }
+        //                 }
+        //             ]
+        //         }
+        //     ]
+        // }
+
+        // 测试数组
+        var arr = [1, 2, 3, [4, 5], [[[6], 7, 8], 9], 10];
+
+        // 转换函数，写法1
+        // function convert(arr) {
+        //     // 准备一个结果数组
+        //     var result = [];
+        //     // 遍历传入的arr的每一项
+        //     for (let i = 0; i < arr.length; i++) {
+        //         // 如果遍历到的数字是number，直接放进入
+        //         if (typeof arr[i] == 'number') {
+        //             result.push({
+        //                 value: arr[i]
+        //             });
+        //         } else if (Array.isArray(arr[i])) {
+        //             // 如果遍历到的这项是数组，那么就递归
+        //             result.push({
+        //                 children: convert(arr[i])
+        //             });
+        //         }
+        //     }
+        //     return result;
+        // }
+
+        // 转换函数写法2，参数不是arr这个词语，而是item，意味着现在item可能是数组，也可能是数字
+        // 即，写法1的递归次数要大大小于写法2。因为写法2中，遇见什么东西都要递归一下。
+        function convert(item) {
+            if (typeof item == 'number') {
+                // 如果传进来的参数是数字
+                return {
+                    value: item
+                };
+            } else if (Array.isArray(item)) {
+                // 如果传进来的参数是数组
+                return {
+                    children: item.map(_item => convert(_item))
+                };
+            }
+        }
+
+        var o = convert(arr);
+        console.log(o);
+    </script>
+</body>
+
+</html>

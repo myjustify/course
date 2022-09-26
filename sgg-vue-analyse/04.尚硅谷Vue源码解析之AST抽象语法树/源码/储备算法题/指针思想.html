@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 试寻找字符串中，连续重复次数最多的字符。
+        var str = 'abbbccc';
+
+        // 指针
+        var i = 0;
+        var j = 1;
+        // 当前重复次数最多的次数
+        var maxRepeatCount = 0;
+        // 重复次数最多的字符串
+        var maxRepeatChar = '';
+
+        // 当i还在范围内的时候，应该继续寻找
+        while (i <= str.length - 1) {
+            // 看i指向的字符和j指向的字符是不是不相同
+            if (str[i] != str[j]) {
+                // console.log('报！！！' + i + '和' + j + '之间的文字连续相同！！都是字母' + str[i] + '它重复了' + (j - i) + '次');
+                // 和当前重复次数最多的进行比较
+                if (j - i > maxRepeatCount) {
+                    // 如果当前文字重复次数（j - i）超过了此时的最大值
+                    // 就让它成为最大值
+                    maxRepeatCount = j - i;
+                    // 将i指针指向的字符存为maxRepeatChar
+                    maxRepeatChar = str[i];
+                }
+                // 让指针i追上指针j
+                i = j;
+            }
+            // 不管相不相同，j永远要后移
+            j++;
+        }
+
+        // 循环结束之后，就可以输出答案了
+        console.log(maxRepeatChar + '重复了' + maxRepeatCount + '次，是最多的连续重复字符');
+    </script>
+</body>
+
+</html>
